@@ -8,12 +8,11 @@ const useSearch = params => {
   useEffect(() => {
     const dataFlight = async () => {
       try {
-        const TESTPARAMS =
+        const BASE_URL = import.meta.env.VITE_API_URL
+        const PARAMS =
+          params ??
           'originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2022-11-01&adults=1&nonStop=false&max=250'
-        const URL = `
-        https://test.api.amadeus.com/v2/shopping/flight-offers?${
-          params ?? TESTPARAMS
-        }`
+        const URL = `${BASE_URL}/v2/shopping/flight-offers?${PARAMS}`
         const TOKEN_TYPE = import.meta.env.VITE_TOKEN_TYPE
         const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN
 
