@@ -1,5 +1,7 @@
+import FlightMockOption from './components/FlightMockOption'
+
 function App() {
-  return <div> prueba </div>
+  return <FlightMockOption />
 }
 
 export default App
