@@ -1,7 +1,9 @@
-// import FlightMockOption from './components/FlightMockOption'
+// import { useEffect, useState } from 'react'
 
-// import DualCalendar from './components/DualCalendar'
+// import FlightMockOption from './components/FlightMockOption'
 // import SingleCalendar from './components/SingleCalendar'
+// import DualCalendar from './components/DualCalendar'
+// import useDataClient from './hooks/useDataClient'
 
 function App() {
   // return <FlightMockOption />
@@ -14,6 +16,8 @@ function App() {
       <SingleCalendar />
     </>
   ) */
+  // const { countryClient, currencyClient } = useDataClient()
+  // console.log({ countryClient, currencyClient })
 }
 
 export default App
