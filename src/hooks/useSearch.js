@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { flightsWithReturn } from '../mocks/fligths'
 
 const useSearch = params => {
   const [loading, setLoading] = useState(true)
@@ -8,6 +9,7 @@ const useSearch = params => {
   useEffect(() => {
     const dataFlight = async () => {
       try {
+        // TODO: como manejar de mejor manera los env
         const BASE_URL = import.meta.env.VITE_API_URL
         const PARAMS =
           params ??
@@ -31,7 +33,7 @@ const useSearch = params => {
       } catch (error) {
         console.log(error)
         setLoading(false)
-        setData({ response: 'error', message: error })
+        setData({ response: 'error', message: error.message })
       }
     }
 
