@@ -5,7 +5,83 @@
 // import DualCalendar from './components/DualCalendar'
 // import useDataClient from './hooks/useDataClient'
 
+import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { useState } from 'react'
+
 function App() {
+  const [formSend, setFormSend] = useState(false)
+
+  return (
+    <>
+      <h1>Buscador de vuelos</h1>
+
+      <Formik
+        initialValues={{
+          origen: '',
+          destino: '',
+        }}
+        validate={({ origen, destino }) => {
+          const errors = {}
+
+          if (!origen) errors.origen = 'Ingresa un origen'
+          if (!destino) errors.destino = 'Ingresa un destino'
+
+          return errors
+        }}
+        onSubmit={(valores, { resetForm }) => {
+          // TODO: necesito limpiar el form??
+          resetForm()
+          console.log('formulario enviado')
+          console.table(valores)
+          // TODO: hacer la consulta a la api
+
+          setFormSend(true)
+
+          // console.log({ loading, data })
+
+          // if (!loading) setFormSend(false)
+        }}
+      >
+        {({ errors, isSubmitting }) => (
+          <Form action='/test'>
+            <div>
+              <label htmlFor='origen'>Origen</label>
+              <Field
+                type='text'
+                id='origen'
+                name='origen'
+                placeholder='Mexico'
+              />
+              <ErrorMessage
+                name='origen'
+                component={() => <div>{errors.origen}</div>}
+              />
+            </div>
+            <div>
+              <label htmlFor='destino'>Destino</label>
+              <Field
+                type='text'
+                id='destino'
+                name='destino'
+                placeholder='Mexico'
+              />
+              <ErrorMessage
+                name='destino'
+                component={() => <div>{errors.destino}</div>}
+              />
+            </div>
+            <button
+              type='submit'
+              disabled={isSubmitting}
+            >
+              Enviar
+            </button>
+            {formSend && <p>Realizando la consulta</p>}
+          </Form>
+        )}
+      </Formik>
+    </>
+  )
   // return <FlightMockOption />
   /* return (
     <>
