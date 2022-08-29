@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export default function useDataClient() {
-  const [countryClient, setCountryClient] = useState('')
+  const [countryClient, setCountryClient] = useState({})
   const [currencyClient, setCurrencyClient] = useState({})
 
   useEffect(() => {
@@ -12,8 +12,8 @@ export default function useDataClient() {
       const { request } = await fetchDataClient.json()
       const { client } = request
       const { geo } = client
-      const { country } = geo
-      setCountryClient(country)
+      const { country, country_code: countryCode } = geo
+      setCountryClient({ country, countryCode })
     }
 
     getDataClient()
@@ -23,7 +23,7 @@ export default function useDataClient() {
     if (!countryClient) return () => false
     const getCurrencyClient = async () => {
       const fetchCurrencyClient = await fetch(
-        `https://restcountries.com/v3.1/name/${countryClient}`
+        `https://restcountries.com/v3.1/name/${countryClient?.country}`
       )
       let [{ currencies }] = await fetchCurrencyClient.json()
       currencies =

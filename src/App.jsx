@@ -18,6 +18,11 @@ function App() {
   ) */
   // const { countryClient, currencyClient } = useDataClient()
   // console.log({ countryClient, currencyClient })
+  // const { country, countryCode } = countryClient
 }
+
+// TODO: guardar en local la data del cliente
+// TODO: guardar en local la data de los aeropuertos que busca
+// TODO: guardar en local la data del destino que busca
 
 export default App
