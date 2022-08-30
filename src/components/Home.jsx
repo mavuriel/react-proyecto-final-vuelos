@@ -18,6 +18,7 @@ export default function Home() {
   return (
     <Formik
       initialValues={{
+        // TODO: mostrar como origen el primer aeropuerto del pais del cliente
         origen: '',
         destino: '',
       }}
@@ -30,14 +31,14 @@ export default function Home() {
         return errors
       }}
       onSubmit={(valores, { resetForm }) => {
-        // TODO: necesito limpiar el form??
-        resetForm()
+        // resetForm()
+
         console.log('formulario enviado')
         console.table(valores)
-        // TODO: hacer la consulta a la api
 
         setFormSend(true)
 
+        // TODO: enviar los datos a la ruta para hacer la consulta a la api
         navigate('/test')
 
         setTimeout(() => setFormSend(false), 3000)
@@ -46,6 +47,8 @@ export default function Home() {
       {({ errors, isSubmitting }) => (
         <Form action='/test'>
           <div>
+            {/* TODO: filtrar y mostrar los aeropuertos del pais seleccionado */}
+            {/* TODO: separar en componente cada input y label */}
             <label htmlFor='origen'>Origen</label>
             <Field
               type='text'
