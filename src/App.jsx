@@ -7,12 +7,26 @@
 
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useState } from 'react'
+import { Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 
 function App() {
   const [formSend, setFormSend] = useState(false)
 
+  const navigate = useNavigate()
+
   return (
     <>
+      <Routes>
+        <Route
+          path='/'
+          element={<div>hola</div>}
+        />
+        <Route
+          path='test'
+          element={<div>prueba</div>}
+        />
+      </Routes>
+
       <h1>Buscador de vuelos</h1>
 
       <Formik
@@ -37,9 +51,9 @@ function App() {
 
           setFormSend(true)
 
-          // console.log({ loading, data })
+          navigate('/test')
 
-          // if (!loading) setFormSend(false)
+          setTimeout(() => setFormSend(false), 3000)
         }}
       >
         {({ errors, isSubmitting }) => (
@@ -80,6 +94,8 @@ function App() {
           </Form>
         )}
       </Formik>
+
+      <Outlet />
     </>
   )
   // return <FlightMockOption />
