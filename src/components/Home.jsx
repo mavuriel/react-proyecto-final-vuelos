@@ -55,7 +55,14 @@ export default function Home() {
               id='origen'
               name='origen'
               placeholder='Mexico'
+              list='test'
             />
+            {/* Separarlo y llenarlo con el listado de aeropuertos */}
+            <datalist id='test'>
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+            </datalist>
             <ErrorMessage
               name='origen'
               component={() => <div>{errors.origen}</div>}
