@@ -1,9 +1,9 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'formik'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import FlightMockOption from './components/FlightMockOption'
-// import SingleCalendar from './components/SingleCalendar'
-// import DualCalendar from './components/DualCalendar'
+import SingleCalendar from './SingleCalendar'
+import DualCalendar from './DualCalendar'
+import FormField from './FormField'
 
 export default function FlightsForm(props) {
   console.log({ props })
@@ -21,6 +21,7 @@ export default function FlightsForm(props) {
       validate={({ origen, destino }) => {
         const errors = {}
 
+        // TODO: validar las fechas
         if (!origen) errors.origen = 'Ingresa un origen'
         if (!destino) errors.destino = 'Ingresa un destino'
 
@@ -30,7 +31,8 @@ export default function FlightsForm(props) {
         // resetForm()
 
         console.log('formulario enviado')
-        console.table(valores)
+
+        console.log({ valores })
 
         setFormSend(true)
 
@@ -40,43 +42,46 @@ export default function FlightsForm(props) {
         setTimeout(() => setFormSend(false), 3000)
       }}
     >
-      {({ errors, isSubmitting }) => (
-        <Form action='/test'>
+      {({ values, errors, isSubmitting, setFieldValue }) => (
+        // TODO: generar las busquedas de acuerdo a lo que teclea despues de 3 segundos sin teclear
+        <Form>
+          <FormField
+            type='text'
+            label='Origen 🛫'
+            name='origen'
+            placeholder='Mexico'
+            isList={true}
+            errors={errors.origen}
+          />
+          <FormField
+            type='text'
+            label='Destino 🏖️'
+            name='destino'
+            placeholder='Mexico'
+            isList={true}
+            errors={errors.destino}
+          />
+          <FormField
+            type='checkbox'
+            label='¿Vuelta? 🧐'
+            name='conVuelta'
+            errors={errors.conVuelta}
+          />
+
           <div>
-            {/* TODO: filtrar y mostrar los aeropuertos del pais seleccionado */}
-            {/* TODO: separar en componente cada input y label */}
-            <label htmlFor='origen'>Origen</label>
-            <Field
-              type='text'
-              id='origen'
-              name='origen'
-              placeholder='Mexico'
-              list='test'
-            />
-            {/* Separarlo y llenarlo con el listado de aeropuertos */}
-            <datalist id='test'>
-              <option value='1'>1</option>
-              <option value='2'>2</option>
-              <option value='3'>3</option>
-            </datalist>
-            <ErrorMessage
-              name='origen'
-              component={() => <div>{errors.origen}</div>}
-            />
+            {/* //?como cambiarlo al otro componente */}
+            {/* //TODO: modificar el calendario sencillo para formik */}
+            {values.conVuelta ? (
+              <Field
+                name='calendario'
+                component={DualCalendar}
+                setFieldValue={setFieldValue}
+              />
+            ) : (
+              <SingleCalendar />
+            )}
           </div>
-          <div>
-            <label htmlFor='destino'>Destino</label>
-            <Field
-              type='text'
-              id='destino'
-              name='destino'
-              placeholder='Mexico'
-            />
-            <ErrorMessage
-              name='destino'
-              component={() => <div>{errors.destino}</div>}
-            />
-          </div>
+
           <button
             type='submit'
             disabled={isSubmitting}
